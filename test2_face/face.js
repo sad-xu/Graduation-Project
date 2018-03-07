@@ -1,7 +1,7 @@
 const http = require('http')
 const express = require('express')
 const router = express.Router()
-const cv = require('opencv4nodejs')
+// const cv = require('opencv4nodejs')
 
 const app = express()
 const server = http.Server(app)

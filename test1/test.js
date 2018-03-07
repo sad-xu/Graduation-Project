@@ -43,7 +43,7 @@ const computeHOGDescriptorFromImage = (img, isIorJ) => {
 svm.load('./data/lcletters.xml');
 
 //const img = cv.imread('./data/testdata/z/z3.png')
-let img = cv.imread('./data/mytest/i.png')
+let img = cv.imread('./data/a.jpg')
 
 let desc = computeHOGDescriptorFromImage(img, true);
 if (!desc) {
@@ -55,7 +55,6 @@ if (!desc) {
 
 
 
-/*
-cv.imshow('img2', img)
+
+cv.imshow('img', img)
 cv.waitKey()
-*/
