@@ -95,7 +95,7 @@ export default {
       this.context2.drawImage(this.canvas1, 0,0,300,300,0,0,40,40);
       this.imgData = this.canvas2.toDataURL('img/png');
     }
-  },
+  }, 
   watch: {
     imgData: function() {
       this.$http.post('/api/imgdata', {data: this.imgData})
