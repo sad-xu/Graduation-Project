@@ -148,7 +148,7 @@ MNIST.set = function (_training, _test) {
   var trainingSet = [];
   var testSet = [];
 
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 26; i++) {
     trainingSet = trainingSet.concat(MNIST[i].set(0, training - 1));
     testSet = testSet.concat(MNIST[i].set(training, training + test - 1));
   }

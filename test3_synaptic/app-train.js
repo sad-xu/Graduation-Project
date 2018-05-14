@@ -4,11 +4,11 @@ const fs = require('fs')
 const log4js = require('log4js')
 log4js.configure({
 	appenders: { 
-		emnistLog: { type: 'file', filename: './logs/log.log' },
+		// emnistLog: { type: 'file', filename: './logs/log.log' },
 		console: {type: 'file', filename:'./logs/train.log' }
 	},
   categories: { 
-  	emnist: {appenders: ['emnistLog'], level: 'trace'},
+  	// emnist: {appenders: ['emnistLog'], level: 'trace'},
   	default: { appenders: ['console'], level: 'trace' }
   },
   replaceConsole: true
@@ -25,9 +25,9 @@ console.log = logger.info.bind(logger2);
 /* 准备数据 */
 const emnist = require('./emnist')
 const set = emnist.set(2002, 78)    // 2002 训练  78 测试
-
 const trainingSet = set.training
 const testSet = set.test
+
 
 
 /*
@@ -49,8 +49,8 @@ const testSet = set.test
 
 
 
-
 /* 构建网络 */
+
 const synaptic = require('synaptic')
 
 const Layer = synaptic.Layer
@@ -69,7 +69,6 @@ const myNetwork = new Network({
 	hidden: [hiddenLayer],
 	output: outputLayer
 })
-
 
 const trainer = new Trainer(myNetwork)
 trainer.train(trainingSet, {
@@ -96,11 +95,11 @@ fs.writeFile("./net.js", standalone, function(err) {
 
 // standalone(testSet[0].input)   // 使用保存的网络测试
 
-for (let i = 0; i < testSet.length; i++) {
-	let ret = myNetwork.activate(testSet[i].input);
-	logger.info(ret)
-	logger.info(testSet[i].output)
-}
+// for (let i = 0; i < testSet.length; i++) {
+// 	let ret = myNetwork.activate(testSet[i].input);
+// 	logger.info(ret)
+// 	logger.info(testSet[i].output)
+// }
 
 
 
