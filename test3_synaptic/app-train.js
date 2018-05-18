@@ -1,30 +1,31 @@
 const fs = require('fs')
 
-/* log */
-const log4js = require('log4js')
-log4js.configure({
-	appenders: { 
-		// emnistLog: { type: 'file', filename: './logs/log.log' },
-		console: {type: 'file', filename:'./logs/train.log' }
-	},
-  categories: { 
-  	// emnist: {appenders: ['emnistLog'], level: 'trace'},
-  	default: { appenders: ['console'], level: 'trace' }
-  },
-  replaceConsole: true
-})
+// /* log */
+// const log4js = require('log4js')
+// log4js.configure({
+// 	appenders: { 
+// 		// emnistLog: { type: 'file', filename: './logs/log.log' },
+// 		console: {type: 'file', filename:'./logs/train.log' }
+// 	},
+//   categories: { 
+//   	// emnist: {appenders: ['emnistLog'], level: 'trace'},
+//   	default: { appenders: ['console'], level: 'trace' }
+//   },
+//   replaceConsole: true
+// })
 
-const logger = log4js.getLogger('emnist')   //emnistLog	
+// const logger = log4js.getLogger('emnist')   //emnistLog	
 
 
-//  替换 console.log
-const logger2 = log4js.getLogger('console');
-console.log = logger.info.bind(logger2);
+// //  替换 console.log
+// const logger2 = log4js.getLogger('console');
+// console.log = logger.info.bind(logger2);
 
 
 /* 准备数据 */
 const emnist = require('./emnist')
 const set = emnist.set(2002, 78)    // 2002 训练  78 测试
+// const set = emnist.set(200, 78)    // 2002 训练  78 测试
 const trainingSet = set.training
 const testSet = set.test
 
@@ -70,13 +71,15 @@ const myNetwork = new Network({
 	output: outputLayer
 })
 
+console.log('start train...')
+
 const trainer = new Trainer(myNetwork)
 trainer.train(trainingSet, {
 	rate: 0.2,         // 学习率
-	interations: 20,   // 迭代次数
+	interations: 800,   // 迭代次数
 	error: 0.1, 			 // 最小错误
 	shuffle: true,     // 随机排序
-	log: 1,						 // 
+	// log: 0,						 // 
 	cost: Trainer.cost.CROSS_ENTROPY
 })
 
