@@ -1,53 +1,11 @@
 const fs = require('fs')
 
-// /* log */
-// const log4js = require('log4js')
-// log4js.configure({
-// 	appenders: { 
-// 		// emnistLog: { type: 'file', filename: './logs/log.log' },
-// 		console: {type: 'file', filename:'./logs/train.log' }
-// 	},
-//   categories: { 
-//   	// emnist: {appenders: ['emnistLog'], level: 'trace'},
-//   	default: { appenders: ['console'], level: 'trace' }
-//   },
-//   replaceConsole: true
-// })
-
-// const logger = log4js.getLogger('emnist')   //emnistLog	
-
-
-// //  替换 console.log
-// const logger2 = log4js.getLogger('console');
-// console.log = logger.info.bind(logger2);
-
-
 /* 准备数据 */
 const emnist = require('./emnist')
-const set = emnist.set(2002, 78)    // 2002 训练  78 测试
-// const set = emnist.set(200, 78)    // 2002 训练  78 测试
+const set = emnist.set(2002, 26)    // 2002 训练  78 测试
+// const set = emnist.set(520, 78)    // 2002 训练  78 测试
 const trainingSet = set.training
 const testSet = set.test
-
-
-
-/*
-	{
-		training: [
-			{
-				input: [0,0,0,0,....784],
-				output: [0,1,0,0,0,0,0,0,0,0]
-			}, {
-	
-			}
-		],
-		test: [
-			{},
-			{}
-		]
-	}
-*/
-
 
 
 /* 构建网络 */
@@ -59,7 +17,7 @@ const Network = synaptic.Network
 const Trainer = synaptic.Trainer
 
 const inputLayer = new Layer(784)
-const hiddenLayer = new Layer(100)
+const hiddenLayer = new Layer(150)
 const outputLayer = new Layer(26)
 
 inputLayer.project(hiddenLayer)
@@ -75,18 +33,19 @@ console.log('start train...')
 
 const trainer = new Trainer(myNetwork)
 trainer.train(trainingSet, {
-	rate: 0.2,         // 学习率
-	interations: 800,   // 迭代次数
+	rate: 0.1,         // 学习率   0.1 			0.05-   0.06-7.6  0.09-11.9  0.1-13.4
+	interations: 1000,   // 迭代次数
 	error: 0.1, 			 // 最小错误
 	shuffle: true,     // 随机排序
-	// log: 0,						 // 
+	log: 1,						 // 
 	cost: Trainer.cost.CROSS_ENTROPY
 })
 
+console.log('finish train...')
 
 // 保存训练好的网络
 let standalone = myNetwork.standalone();
-fs.writeFile("./net.js", standalone, function(err) {
+fs.writeFile("./net3.js", standalone, function(err) {
 	if (err) {
 		console.log(err)
 	} else {

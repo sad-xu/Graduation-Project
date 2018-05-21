@@ -1,4 +1,5 @@
-const http = require('http')
+// const http = require('http')
+const https = require('https')
 const fs = require('fs')
 const express = require('express')
 const bodyParse = require('body-parser')
@@ -7,10 +8,16 @@ const cv = require('opencv4nodejs')
 const router = express.Router()
 const app = express()
 
+const httpsOptions = {
+	key: fs.readFileSync('./https/214400255360454.key', 'utf8'),
+	cert: fs.readFileSync('./https/214400255360454.pem', 'utf8')
+};
+
+
 app.use(bodyParse.json());
 app.use(bodyParse.urlencoded({extended:true}))
 
-let netData = fs.readFileSync('./net.js', 'utf8')
+let netData = fs.readFileSync('./nets/net0-03.js', 'utf8')
 const net = eval('(' + netData + ')');
 
 /*
@@ -71,7 +78,10 @@ router.post('/imgdata', (req, res) => {
 })
 app.use('/api', router);
 
-http.createServer(app).listen(8081, function() {
-	console.log('listening port 8081')
-})
+// http.createServer(app).listen(8081, function() {
+// 	console.log('listening port 8081')
+// })
 
+https.createServer(httpsOptions, app).listen(443, function() {
+	console.log('listening port 443')
+})
