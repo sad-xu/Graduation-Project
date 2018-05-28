@@ -103,26 +103,25 @@ var raw = [
 
 
 MNIST.set = function (_training, _test) {
-  var training = _training / 10 | 0;
-  var test = _test / 10 | 0;
+  var training = _training / 26 | 0;
+  var test = _test / 26 | 0;
 
   if (training < 1)
     training = 1;
   if (test < 1)
     test = 1;
 
-  if (training + test + 1 > MNIST.__MINLENGTH) {
-    console.warn('There are not enough samples to make a training set of ' + training + ' elements and a test set of ' + test + ' elements.');
-    if (training > test) {
-      test = MNIST.__MINLENGTH * (test / training);
-      training = MNIST.__MINLENGTH - training;
-    }
-    else {
-      training = MNIST.__MINLENGTH * (training / test);
-      test = MNIST.__MINLENGTH - test;
-    }
-  }
-
+  // if (training + test + 1 > MNIST.__MINLENGTH) {
+  //   console.warn('There are not enough samples to make a training set of ' + training + ' elements and a test set of ' + test + ' elements.');
+  //   if (training > test) {
+  //     test = MNIST.__MINLENGTH * (test / training);
+  //     training = MNIST.__MINLENGTH - training;
+  //   }
+  //   else {
+  //     training = MNIST.__MINLENGTH * (training / test);
+  //     test = MNIST.__MINLENGTH - test;
+  //   }
+  // }
   var trainingSet = [];
   var testSet = [];
 

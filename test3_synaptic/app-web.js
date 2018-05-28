@@ -17,7 +17,7 @@ const httpsOptions = {
 app.use(bodyParse.json());
 app.use(bodyParse.urlencoded({extended:true}))
 
-let netData = fs.readFileSync('./nets/net0-03.js', 'utf8')
+let netData = fs.readFileSync('./nets/net0-07.js', 'utf8')
 const net = eval('(' + netData + ')');
 
 /*

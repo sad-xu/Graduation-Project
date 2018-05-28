@@ -2,8 +2,8 @@ const fs = require('fs')
 
 /* 准备数据 */
 const emnist = require('./emnist')
-const set = emnist.set(1820, 26)    // 2002 训练  78 测试
-// const set = emnist.set(520, 78)    // 2002 训练  78 测试
+const set = emnist.set(2080, 26)    // 2080 训练  78 测试
+// const set = emnist.set(520, 78)    // 2080 训练  78 测试
 const trainingSet = set.training
 const testSet = set.test
 
@@ -33,7 +33,7 @@ console.log('start train...')
 
 const trainer = new Trainer(myNetwork)
 trainer.train(trainingSet, {
-	rate: 0.07,         // 学习率   0.1 			0.05-   0.06-7.6  0.09-11.9  0.1-13.4
+	rate: 0.09,         // 学习率   0.1 			0.05-   0.06-7.6 0.07-9.45 0.08- 0.09-11.9  0.1-13.4
 	interations: 1000,   // 迭代次数
 	error: 0.1, 			 // 最小错误
 	shuffle: true,     // 随机排序
@@ -45,7 +45,7 @@ console.log('finish train...')
 
 // 保存训练好的网络
 let standalone = myNetwork.standalone();
-fs.writeFile("./net3.js", standalone, function(err) {
+fs.writeFile("./net0-09.js", standalone, function(err) {
 	if (err) {
 		console.log(err)
 	} else {
